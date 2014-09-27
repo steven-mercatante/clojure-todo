@@ -2,13 +2,6 @@
   (:gen-class))
 
 
-(defn in?
-  "true if seq contains elm.
-  Thanks to j-g-faustus @ http://stackoverflow.com/a/3249777/155175"
-  [seq elm]
-  (some #(= elm %) seq))
-
-
 (defn add-task
   "Add a task to the list"
   [[task & args]]
@@ -16,10 +9,13 @@
 
 
 (defn list-tasks
-  [[show-all? & args]]
-  (if (in? ["true", "yes", "all"] show-all?)
-    (println "show all tasks")
-    (println "show pending tasks")))
+  [[list-what? & args]]
+  (case list-what?
+    "all" (println "list all tasks")
+    "completed" (println "list completed tasks")
+    "pending" (println "list pending tasks")
+    nil (println "list pending tasks")
+    (println (str "Unrecognized value: " list-what?))))
 
 
 (defn complete-task
