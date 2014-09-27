@@ -13,8 +13,7 @@
   (case list-what?
     "all" (println "list all tasks")
     "completed" (println "list completed tasks")
-    "pending" (println "list pending tasks")
-    nil (println "list pending tasks")
+    ("pending" nil) (println "list pending tasks")
     (println (str "Unrecognized value: " list-what?))))
 
 
