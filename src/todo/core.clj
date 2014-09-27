@@ -7,7 +7,6 @@
   "Load tasks from JSON file into memory and convert to map"
   []
   (let [json-file (str (System/getProperty "user.dir") "/tasks.json")]
-    (println json-file)
     (json/read-str(slurp json-file) :key-fn keyword)))
 
 
@@ -15,7 +14,7 @@
   [tasks [show-what?]]
   (println (str "show: " show-what?))
   (doseq [task tasks]
-    (println (get task :task))))
+    (println (task :task))))
 
 
 (defn add-task
