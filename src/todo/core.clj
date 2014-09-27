@@ -1,5 +1,21 @@
 (ns todo.core
-  (:gen-class))
+  (:gen-class)
+  (:require [clojure.data.json :as json]))
+
+
+(defn load-tasks
+  "Load tasks from JSON file into memory and convert to map"
+  []
+  (let [json-file (str (System/getProperty "user.dir") "/tasks.json")]
+    (println json-file)
+    (json/read-str(slurp json-file) :key-fn keyword)))
+
+
+(defn print-tasks
+  [tasks [show-what?]]
+  (println (str "show: " show-what?))
+  (doseq [task tasks]
+    (println (get task :task))))
 
 
 (defn add-task
@@ -8,21 +24,14 @@
   (println (str "add task: " task)))
 
 
-(defn list-tasks
-  [[list-what?]]
-  (case list-what?
-    "all" (println "list all tasks")
-    "completed" (println "list completed tasks")
-    ("pending" nil) (println "list pending tasks")
-    (println (str "Unrecognized value: " list-what?))))
-
-
 (defn complete-task
+  "Mark a task as complete"
   [[task]]
   (println (str "complete task: " task)))
 
 
 (defn delete-task
+  "Remove a task from the list"
   [[task]]
   (println (str "delete task: " task)))
 
@@ -35,5 +44,5 @@
       "add" (add-task args)
       "complete" (complete-task args)
       "delete" (delete-task args)
-      "list" (list-tasks args)
+      "list" (print-tasks (load-tasks) args)
       (str "Unrecognized action: " action))))
