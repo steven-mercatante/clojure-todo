@@ -1,6 +1,4 @@
-# A To Do app written in Clojure
-
-FIXME: description
+# A To Do App Written in Clojure
 
 ## Why?
 
