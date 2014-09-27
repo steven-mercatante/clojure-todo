@@ -4,12 +4,12 @@
 
 (defn add-task
   "Add a task to the list"
-  [[task & args]]
+  [[task]]
   (println (str "add task: " task)))
 
 
 (defn list-tasks
-  [[list-what? & args]]
+  [[list-what?]]
   (case list-what?
     "all" (println "list all tasks")
     "completed" (println "list completed tasks")
@@ -18,12 +18,12 @@
 
 
 (defn complete-task
-  [[task & args]]
+  [[task]]
   (println (str "complete task: " task)))
 
 
 (defn delete-task
-  [[task & args]]
+  [[task]]
   (println (str "delete task: " task)))
 
 
