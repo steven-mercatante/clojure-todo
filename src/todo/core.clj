@@ -2,6 +2,8 @@
   (:gen-class)
   (:require [clojure.data.json :as json]))
 
+(use 'clojure.java.io)
+
 
 (def json-file (str (System/getProperty "user.dir") "/tasks.json"))
 
@@ -15,7 +17,9 @@
 (defn write-tasks
   "Write task list to JSON file"
   [tasks]
-  (spit json-file (json/write-str tasks)))
+  (with-open [wrtr (writer json-file)]
+    (.write wrtr (json/write-str tasks))))
+  ;;(spit json-file (json/write-str tasks)))
 
 
 (defn print-tasks
