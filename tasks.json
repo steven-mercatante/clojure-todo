@@ -1,14 +1,1 @@
-[
-    {
-        "task": "Learn Clojure",
-        "complete": false
-    },
-    {
-        "task": "Vacuum",
-        "complete": false
-    },
-    {
-      "task": "Cook Dinner",
-      "complete": false
-    }
-]
+[{"task":"Learn Clojure","complete":false},{"task":"Vacuum","complete":false},{"task":"foo","complete":false},{"task":"bar","complete":false}]
