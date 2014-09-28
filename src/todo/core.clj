@@ -1,7 +1,6 @@
 (ns todo.core
   (:gen-class)
   (:require [clojure.data.json :as json]))
-
 (use 'clojure.java.io)
 
 
@@ -14,19 +13,27 @@
   (json/read-str (slurp json-file) :key-fn keyword))
 
 
+(defn filter-tasks
+  "Given a vector of task maps, returns a filtered vector based on the `complete` value."
+  [tasks show-what?]
+  (case show-what?
+    "all" tasks ; No need to filter - return all tasks
+    "complete" (filter #(= (:complete %) true) tasks)
+    ("pending" nil) (filter #(= (:complete %) false) tasks))
+  )
+
+
 (defn write-tasks
   "Write task list to JSON file"
   [tasks]
   (with-open [wrtr (writer json-file)]
     (.write wrtr (json/write-str tasks))))
-  ;;(spit json-file (json/write-str tasks)))
 
 
 (defn print-tasks
   "Print tasks in the list"
   [tasks [show-what?]]
-  (println (str "show: " show-what?))
-  (doseq [task tasks]
+  (doseq [task (filter-tasks tasks show-what?)]
     (println (task :task))))
 
 
